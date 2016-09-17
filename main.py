@@ -269,11 +269,16 @@ class LoginHandler(BlogHandler):
     def get(self):
         self.render_login_form()
 
+    def get_user_by_name(self, username):
+        # get the user from the database
+        u = db.GqlQuery("SELECT * FROM User WHERE username = '%s'" % username)
+        if u:
+            return u.get()
+
     def post(self):
         submitted_username = self.request.get("username")
         submitted_password = self.request.get("password")
 
-        # get the user from the database
         user = self.get_user_by_name(submitted_username)
 
         if not user:
