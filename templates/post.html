@@ -7,8 +7,8 @@
 <p class="post-body">{{ post.body }}</p>
 <!-- TODO add author w/ link to author's blog -->
 
-    written by <a href="/blog/{{ username }}">{{ username }}</a> on {{ post.created.strftime('%Y-%m-%d') }}
+    written by <a href="/blog/{{ post.author.username  }}">{{ post.author.username }}</a> on {{ post.created.strftime('%Y-%m-%d') }}
 
 
-
+s
 {% endblock %}
