@@ -66,7 +66,7 @@ class IndexHandler(BlogHandler):
         """ List all blog users """
         users = User.all()
         t = jinja_env.get_template("index.html")
-        response = t.render(users = users)
+        response = t.render(users=users)
         self.response.write(response)
 
 class BlogIndexHandler(BlogHandler):
@@ -151,15 +151,18 @@ class ViewPostHandler(BlogHandler):
 
     def get(self, id, username=""):
         """ Render a page with post determined by the id (via the URL/permalink) """
+        username = self.get_user_by_name(username)
 
         post = Post.get_by_id(int(id))
         if post:
             t = jinja_env.get_template("post.html")
-            response = t.render(post=post)
+            response = t.render(post=post,
+                                username=username)
         else:
             error = "there is no post with id %s" % id
             t = jinja_env.get_template("404.html")
             response = t.render(error=error)
+
 
         self.response.out.write(response)
 
